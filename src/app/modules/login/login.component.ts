@@ -52,8 +52,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             await this.appService.loginByAuth(this.loginForm.value);
         } else {
             this.toastr.error('請輸入帳號密碼!');
-            this.isAuthLoading = false;
         }
+        this.isAuthLoading = false;
     }
 
     async loginByGoogle() {

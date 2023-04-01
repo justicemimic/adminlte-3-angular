@@ -3,54 +3,71 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Gatekeeper} from 'gatekeeper-client-sdk';
 import $ from 'jquery';
-
+import {HttpService} from '../http_service';
+export default HttpService;
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
     public user: any = null;
 
-    constructor(private router: Router, private toastr: ToastrService) {}
+    constructor(
+        private router: Router,
+        private toastr: ToastrService,
+        private http: HttpService
+    ) {}
 
     async loginByAuth(fromeval) {
         try {
-            // const token = await Gatekeeper.loginByAuth(email, password);
-            // await this.getProfile();
-            // console.log('test', fromeval);
-            var settings = {
-                url: 'http://35.201.178.250:8787/Login',
-                method: 'POST',
-                timeout: 0,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: JSON.stringify({
-                    AD_account: fromeval.username,
-                    Password: fromeval.password
-                })
+            const data = {
+                AD_account: fromeval.username,
+                Password: fromeval.password
             };
-
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-                if (response.success) {
+            this.http.Post('Login', data).subscribe((res) => {
+                if (res.success) {
                     this.user = {
-                        picture: response.Permission_module_name,
-                        email: response.token
+                        picture: res.Permission_module_name,
+                        email: res.token
                     };
-                    localStorage.setItem('token', response.token);
+                    localStorage.setItem('token', res.token);
                     // console.log('token' + response.token);
-                    // this.toastr.success('Login success');
+                    this.toastr.success('Login success');
                     alert('登入成功!');
-                    this.router.navigate(['/']);
-                    // this.router.navigateByUrl('/');
+                    this.router.navigateByUrl('/');
                 } else {
                     alert('帳號密碼錯誤，請重新輸入!');
                 }
-                this.isAuthLoading = false;
+                console.log(res); // 將所回傳的物件塞回入列表內
             });
+
+            // const token = await Gatekeeper.loginByAuth(email, password);
+            // await this.getProfile();
+            // console.log('test', fromeval);
+            // var settings = {
+            //     url: 'http://35.201.178.250:8787/Login',
+            //     method: 'POST',
+            //     timeout: 0,
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     data: JSON.stringify({
+            //         AD_account: fromeval.username,
+            //         Password: fromeval.password
+            //     })
+            // };
+
+            // $.ajax(settings).done(function (response) {
+            //     console.log(response);
+            //     if (response.success) {
+
+            //     } else {
+            //     }
+            // });
+            this.router.navigate(['/']);
         } catch (error) {
             this.toastr.error(error.message);
         }
+        // this.isAuthLoading = false;
     }
 
     async registerByAuth({email, password}) {
