@@ -40,29 +40,6 @@ export class AppService {
                 console.log(res); // 將所回傳的物件塞回入列表內
             });
 
-            // const token = await Gatekeeper.loginByAuth(email, password);
-            // await this.getProfile();
-            // console.log('test', fromeval);
-            // var settings = {
-            //     url: 'http://35.201.178.250:8787/Login',
-            //     method: 'POST',
-            //     timeout: 0,
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     data: JSON.stringify({
-            //         AD_account: fromeval.username,
-            //         Password: fromeval.password
-            //     })
-            // };
-
-            // $.ajax(settings).done(function (response) {
-            //     console.log(response);
-            //     if (response.success) {
-
-            //     } else {
-            //     }
-            // });
             this.router.navigate(['/']);
         } catch (error) {
             this.toastr.error(error.message);
