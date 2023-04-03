@@ -3,25 +3,26 @@ import {
     HttpClientTestingModule,
     HttpTestingController
 } from '@angular/common/http/testing';
-import {DataTableComponent} from './datatable.component';
+import {DatatableComponent} from './datatable.component';
+
 import {UserService} from './user.service';
 
 describe('DatableComponent', () => {
-    let component: DataTableComponent;
-    let fixture: ComponentFixture<DataTableComponent>;
+    let component: DatatableComponent;
+    let fixture: ComponentFixture<DatatableComponent>;
     let httpMock: HttpTestingController;
     let userService: UserService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            declarations: [DataTableComponent],
+            declarations: [DatatableComponent],
             providers: [UserService]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DataTableComponent);
+        fixture = TestBed.createComponent(DatatableComponent);
         component = fixture.componentInstance;
         userService = TestBed.inject(UserService);
         httpMock = TestBed.inject(HttpTestingController);
