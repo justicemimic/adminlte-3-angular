@@ -35,8 +35,7 @@ import {uiReducer} from './store/ui/reducer';
 import {ProfabricComponentsModule} from '@profabric/angular-components';
 import {defineCustomElements} from '@profabric/web-components/loader';
 import {SidebarSearchComponent} from './components/sidebar-search/sidebar-search.component';
-import { DataTableComponent } from './components/data-table/data-table.component';
-
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
 
@@ -62,8 +61,7 @@ registerLocaleData(localeEn, 'en-EN');
         SubMenuComponent,
         MenuItemComponent,
         ControlSidebarComponent,
-        SidebarSearchComponent,
-        DataTableComponent
+        SidebarSearchComponent
     ],
     imports: [
         BrowserModule,
@@ -73,6 +71,7 @@ registerLocaleData(localeEn, 'en-EN');
         ReactiveFormsModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        NgxDatatableModule,
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-top-right',
