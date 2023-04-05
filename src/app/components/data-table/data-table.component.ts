@@ -1,19 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-
-declare var $: any;
 import {User} from '../../@models/user.model';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 @Component({
     selector: 'app-datatable',
     templateUrl: './data-table.component.html',
     styleUrls: ['./data-table.component.css']
 })
 export class DatatableComponent implements OnInit {
-    constructor() {}
-    users: User[] = [];
+    rows: User[] = [];
     searchValue = '';
     sortColumn = '';
+
     ngOnInit(): void {
-        (this.users = [
+        this.rows = [
             {
                 id: 1,
                 name: 'John Doe',
@@ -44,9 +43,27 @@ export class DatatableComponent implements OnInit {
                 email: 'david.lee@example.com',
                 phone: '567-890-1234'
             }
-        ]),
-            $(document).ready(function () {
-                $('#example').DataTable();
-            });
+        ];
+    }
+
+    updateFilter(event: any) {
+        const val = event.target.value.toLowerCase();
+
+        // filter our data
+        const temp = this.rows.filter((d: any) => {
+            return (
+                d.name.toLowerCase().indexOf(val) !== -1 ||
+                d.email.toLowerCase().indexOf(val) !== -1 ||
+                d.phone.toLowerCase().indexOf(val) !== -1 ||
+                !val
+            );
+        });
+
+        // update the rows
+        this.rows = temp;
+    }
+
+    updateSort(column: string) {
+        this.sortColumn = column;
     }
 }

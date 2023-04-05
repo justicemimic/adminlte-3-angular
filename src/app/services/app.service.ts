@@ -5,6 +5,7 @@ import {Gatekeeper} from 'gatekeeper-client-sdk';
 import $ from 'jquery';
 import {HttpService} from '../http_service';
 export default HttpService;
+
 @Injectable({
     providedIn: 'root'
 })
@@ -108,12 +109,21 @@ export class AppService {
     }
 
     async getProfile() {
-        try {
-            this.user = await Gatekeeper.getProfile();
-        } catch (error) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.user = {
+                picture: token,
+                email: token
+            };
+        } else {
             this.logout();
-            throw error;
         }
+        // try {
+        //     this.user = await Gatekeeper.getProfile();
+        // } catch (error) {
+        //     this.logout();
+        //     throw error;
+        // }
     }
 
     logout() {

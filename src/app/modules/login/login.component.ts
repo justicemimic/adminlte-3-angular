@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     public isAuthLoading = false;
     public isGoogleLoading = false;
     public isFacebookLoading = false;
+    public data: any;
+
     constructor(
         private renderer: Renderer2,
         private toastr: ToastrService,
@@ -49,11 +51,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isAuthLoading = true;
 
         if (username && password) {
-            await this.appService.loginByAuth(this.loginForm.value);
+            this.data = await this.appService.loginByAuth(this.loginForm.value);
+            console.log(this.data);
+            // this.isAuthLoading = false;
         } else {
             this.toastr.error('請輸入帳號密碼!');
+            this.isAuthLoading = false;
         }
-        this.isAuthLoading = false;
     }
 
     async loginByGoogle() {
