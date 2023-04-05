@@ -1,23 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {Component, OnInit} from '@angular/core';
+declare var $: any;
 
-import { DataTableComponent } from './data-table.component';
+@Component({
+    selector: 'app-datatable',
+    templateUrl: './data-table.component.html',
+    styleUrls: ['./data-table.component.css']
+})
+export class DatatableComponent implements OnInit {
+    constructor() {}
 
-describe('DataTableComponent', () => {
-  let component: DataTableComponent;
-  let fixture: ComponentFixture<DataTableComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DataTableComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(DataTableComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    ngOnInit(): void {
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    }
+}

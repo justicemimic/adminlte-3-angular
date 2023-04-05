@@ -1,1 +1,28 @@
-<p>data-table works!</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">DataTable</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users ">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
