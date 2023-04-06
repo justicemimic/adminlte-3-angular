@@ -14,8 +14,11 @@
         </div>
     </div>
     <div class="card-body table-responsive p-0 bootstrap">
-        <ngx-datatable class="table table-hover table-bordered" [rows]="rows" [columnMode]="'force'" [headerHeight]="50"
-            [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [sorts]="[{prop: sortColumn, dir: 'asc'}]">
+        <ngx-datatable class="table table-striped table-hover table-bordered" [rows]="rows" [columnMode]="'force'"
+            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10"
+            [sorts]="[{prop: sortColumn, dir: 'asc'}]" headerClass="custom-header"
+            pagerLeftArrow="<i class='fas fa-angle-double-left'></i>"
+            pagerRightArrow="<i class='fas fa-angle-double-right'></i>">
             <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
             <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
             <ngx-datatable-column name="Email" prop="email"></ngx-datatable-column>

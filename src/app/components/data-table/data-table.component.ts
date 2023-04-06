@@ -1,56 +1,59 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../@models/user.model';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+
 @Component({
     selector: 'app-datatable',
     templateUrl: './data-table.component.html',
     styleUrls: ['./data-table.component.css']
 })
 export class DatatableComponent implements OnInit {
+    originalRows: User[] = [];
     rows: User[] = [];
     searchValue = '';
     sortColumn = '';
 
     ngOnInit(): void {
-        this.rows = [
+        this.originalRows = [
             {
                 id: 1,
-                name: 'John Doe',
+                name: '王大明',
                 email: 'john.doe@example.com',
-                phone: '123-456-7890'
+                phone: '082-333-214'
             },
             {
                 id: 2,
-                name: 'Jane Smith',
+                name: '陳大名',
                 email: 'jane.smith@example.com',
-                phone: '234-567-8901'
+                phone: '02-567-891'
             },
             {
                 id: 3,
-                name: 'Bob Johnson',
+                name: '李小美',
                 email: 'bob.johnson@example.com',
-                phone: '345-678-9012'
+                phone: '01-313-345'
             },
             {
                 id: 4,
-                name: 'Mary Brown',
+                name: '辰字號',
                 email: 'mary.brown@example.com',
-                phone: '456-789-0123'
+                phone: '03-789-123'
             },
             {
                 id: 5,
-                name: 'David Lee',
+                name: '金城武',
                 email: 'david.lee@example.com',
-                phone: '567-890-1234'
+                phone: '04-890-345'
             }
         ];
+        this.rows = this.originalRows;
     }
 
     updateFilter(event: any) {
         const val = event.target.value.toLowerCase();
 
         // filter our data
-        const temp = this.rows.filter((d: any) => {
+        const temp = this.originalRows.filter((d: any) => {
             return (
                 d.name.toLowerCase().indexOf(val) !== -1 ||
                 d.email.toLowerCase().indexOf(val) !== -1 ||
@@ -59,7 +62,6 @@ export class DatatableComponent implements OnInit {
             );
         });
 
-        // update the rows
         this.rows = temp;
     }
 

@@ -3,9 +3,10 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Gatekeeper} from 'gatekeeper-client-sdk';
 import $ from 'jquery';
+
 import {HttpService} from '../http_service';
 export default HttpService;
-
+import {LoadingBarService} from '@ngx-loading-bar/core';
 @Injectable({
     providedIn: 'root'
 })
@@ -15,7 +16,8 @@ export class AppService {
     constructor(
         private router: Router,
         private toastr: ToastrService,
-        private http: HttpService
+        private http: HttpService,
+        private loadingBar: LoadingBarService
     ) {}
 
     async loginByAuth(fromeval) {
@@ -30,15 +32,15 @@ export class AppService {
                         picture: res.Permission_module_name,
                         email: res.token
                     };
+                    this.toastr.success('登入成功!');
                     localStorage.setItem('token', res.token);
-                    // console.log('token' + response.token);
-                    this.toastr.success('Login success');
-                    alert('登入成功!');
                     this.router.navigateByUrl('/');
                 } else {
-                    alert('帳號密碼錯誤，請重新輸入!');
+                    this.toastr.error('登入失敗!');
+                    // this.loadingBar.complete(); // 開啟進度條
+                    // this.loginComponent.isAuthLoading = false;
                 }
-                console.log(res); // 將所回傳的物件塞回入列表內
+                // console.log(res); // 將所回傳的物件塞回入列表內
             });
 
             this.router.navigate(['/']);

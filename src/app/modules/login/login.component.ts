@@ -9,7 +9,7 @@ import $ from 'jquery';
 import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {AppService} from '@services/app.service';
-
+import {LoadingBarService} from '@ngx-loading-bar/core';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(
         private renderer: Renderer2,
         private toastr: ToastrService,
-        private appService: AppService
+        private appService: AppService,
+        private loadingBar: LoadingBarService
     ) {}
 
     ngOnInit() {
@@ -51,9 +52,20 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isAuthLoading = true;
 
         if (username && password) {
-            this.data = await this.appService.loginByAuth(this.loginForm.value);
-            console.log(this.data);
-            // this.isAuthLoading = false;
+            try {
+                this.data = await this.appService.loginByAuth(
+                    this.loginForm.value
+                );
+                console.log(this.data.success);
+                if (this.data.success) {
+                    this.toastr.success('登入成功!');
+                }
+            } catch (error) {
+                // console.error(error);
+                // this.toastr.error('登入失敗!');
+            } finally {
+                this.isAuthLoading = false;
+            }
         } else {
             this.toastr.error('請輸入帳號密碼!');
             this.isAuthLoading = false;

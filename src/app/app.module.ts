@@ -18,7 +18,7 @@ import {DashboardComponent} from '@pages/dashboard/dashboard.component';
 import {ToastrModule} from 'ngx-toastr';
 import {MessagesComponent} from '@modules/main/header/messages/messages.component';
 import {NotificationsComponent} from '@modules/main/header/notifications/notifications.component';
-
+import {LoadingBarModule} from '@ngx-loading-bar/core';
 import {registerLocaleData} from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import {UserComponent} from '@modules/main/header/user/user.component';
@@ -29,7 +29,7 @@ import {MainMenuComponent} from './pages/main-menu/main-menu.component';
 import {SubMenuComponent} from './pages/main-menu/sub-menu/sub-menu.component';
 import {MenuItemComponent} from './components/menu-item/menu-item.component';
 import {DatatableComponent} from './components/data-table/data-table.component';
-
+import {NgHttpLoaderModule} from 'ng-http-loader';
 import {ControlSidebarComponent} from './modules/main/control-sidebar/control-sidebar.component';
 import {StoreModule} from '@ngrx/store';
 import {authReducer} from './store/auth/reducer';
@@ -75,6 +75,8 @@ registerLocaleData(localeEn, 'en-EN');
         HttpClientModule,
         BrowserAnimationsModule,
         NgxDatatableModule,
+        NgHttpLoaderModule,
+        LoadingBarModule,
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-top-right',
