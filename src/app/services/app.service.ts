@@ -5,14 +5,13 @@ import {Gatekeeper} from 'gatekeeper-client-sdk';
 import $ from 'jquery';
 
 import {HttpService} from '../http_service';
-export default HttpService;
 import {LoadingBarService} from '@ngx-loading-bar/core';
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
     public user: any = null;
-
+    isAuthloading = false;
     constructor(
         private router: Router,
         private toastr: ToastrService,
@@ -20,27 +19,14 @@ export class AppService {
         private loadingBar: LoadingBarService
     ) {}
 
-    async loginByAuth(fromeval) {
+    loginByAuth(fromeval) {
         try {
             const data = {
                 AD_account: fromeval.username,
                 Password: fromeval.password
             };
-            this.http.Post('Login', data).subscribe((res) => {
-                if (res.success) {
-                    this.user = {
-                        picture: res.Permission_module_name,
-                        email: res.token
-                    };
-                    this.toastr.success('登入成功!');
-                    localStorage.setItem('token', res.token);
-                    this.router.navigateByUrl('/');
-                } else {
-                    this.toastr.error('登入失敗!');
-                }
-            });
-
-            this.router.navigate(['/']);
+            this.isAuthloading = true;
+            return this.http.Post('Login', data);
         } catch (error) {
             this.toastr.error(error.message);
         }

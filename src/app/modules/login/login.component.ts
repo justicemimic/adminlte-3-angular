@@ -10,6 +10,7 @@ import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {AppService} from '@services/app.service';
 import {LoadingBarService} from '@ngx-loading-bar/core';
+import {Router} from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         private renderer: Renderer2,
         private toastr: ToastrService,
         private appService: AppService,
-        private loadingBar: LoadingBarService
+        private loadingBar: LoadingBarService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -53,10 +55,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         if (username && password) {
             try {
-                this.data = await this.appService.loginByAuth(
-                    this.loginForm.value
-                );
-                this.isAuthLoading = false;
+                this.data = await this.appService
+                    .loginByAuth(this.loginForm.value)
+                    .subscribe((res) => {
+                        this.isAuthLoading = false;
+                        if (res.success) {
+                            this.appService.user = {
+                                picture: res.Permission_module_name,
+                                email: res.token
+                            };
+                            this.toastr.success('登入成功!');
+                            localStorage.setItem('token', res.token);
+                            this.router.navigateByUrl('/');
+                        } else {
+                            this.toastr.error('登入失敗!');
+                        }
+                    });
             } catch (error) {
                 console.error(error);
                 this.toastr.error('登入失敗!');

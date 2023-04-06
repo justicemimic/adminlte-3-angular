@@ -69,7 +69,6 @@ registerLocaleData(localeEn, 'en-EN');
     imports: [
         BrowserModule,
         StoreModule.forRoot({auth: authReducer, ui: uiReducer}),
-        HttpClientModule,
         AppRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,
