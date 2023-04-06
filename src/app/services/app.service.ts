@@ -37,10 +37,7 @@ export class AppService {
                     this.router.navigateByUrl('/');
                 } else {
                     this.toastr.error('登入失敗!');
-                    // this.loadingBar.complete(); // 開啟進度條
-                    // this.loginComponent.isAuthLoading = false;
                 }
-                // console.log(res); // 將所回傳的物件塞回入列表內
             });
 
             this.router.navigate(['/']);

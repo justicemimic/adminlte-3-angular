@@ -52,7 +52,6 @@ export class DatatableComponent implements OnInit {
     updateFilter(event: any) {
         const val = event.target.value.toLowerCase();
 
-        // filter our data
         const temp = this.originalRows.filter((d: any) => {
             return (
                 d.name.toLowerCase().indexOf(val) !== -1 ||

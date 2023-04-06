@@ -56,15 +56,12 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.data = await this.appService.loginByAuth(
                     this.loginForm.value
                 );
-                console.log(this.data.success);
-                if (this.data.success) {
-                    this.toastr.success('登入成功!');
-                }
-            } catch (error) {
-                // console.error(error);
-                // this.toastr.error('登入失敗!');
-            } finally {
                 this.isAuthLoading = false;
+            } catch (error) {
+                console.error(error);
+                this.toastr.error('登入失敗!');
+                this.isAuthLoading = false;
+            } finally {
             }
         } else {
             this.toastr.error('請輸入帳號密碼!');
